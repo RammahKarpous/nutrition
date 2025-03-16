@@ -1,0 +1,161 @@
+@import 'tailwindcss';
+
+@plugin 'tailwindcss-animate';
+
+@source "../views";
+@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
+
+@custom-variant dark (&:is(.dark *));
+
+@theme {
+    --font-sans:
+        'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+
+    --radius-lg: var(--radius);
+    --radius-md: calc(var(--radius) - 2px);
+    --radius-sm: calc(var(--radius) - 4px);
+
+    --color-background: var(--background);
+    --color-background-alt: var(--background-alt);
+    --color-foreground: var(--foreground);
+
+    --color-card: var(--card);
+    --color-card-foreground: var(--card-foreground);
+
+    --color-popover: var(--popover);
+    --color-popover-foreground: var(--popover-foreground);
+
+    --color-primary: var(--primary);
+    --color-primary-foreground: var(--primary-foreground);
+
+    --color-secondary: var(--secondary);
+    --color-secondary-foreground: var(--secondary-foreground);
+
+    --color-muted: var(--muted);
+    --color-muted-foreground: var(--muted-foreground);
+
+    --color-accent: var(--accent);
+    --color-accent-foreground: var(--accent-foreground);
+
+    --color-destructive: var(--destructive);
+    --color-destructive-foreground: var(--destructive-foreground);
+
+    --color-border: var(--border);
+    --color-input: var(--input);
+    --color-ring: var(--ring);
+
+    --color-chart-1: var(--chart-1);
+    --color-chart-2: var(--chart-2);
+    --color-chart-3: var(--chart-3);
+    --color-chart-4: var(--chart-4);
+    --color-chart-5: var(--chart-5);
+
+    --color-sidebar: var(--sidebar);
+    --color-sidebar-foreground: var(--sidebar-foreground);
+    --color-sidebar-primary: var(--sidebar-primary);
+    --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+    --color-sidebar-accent: var(--sidebar-accent);
+    --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+    --color-sidebar-border: var(--sidebar-border);
+    --color-sidebar-ring: var(--sidebar-ring);
+}
+
+/*
+  The default border color has changed to `currentColor` in Tailwind CSS v4,
+  so we've added these compatibility styles to make sure everything still
+  looks the same as it did with Tailwind CSS v3.
+
+  If we ever want to remove these styles, we need to add an explicit border
+  color utility to any element that depends on these defaults.
+*/
+@layer base {
+    *,
+    ::after,
+    ::before,
+    ::backdrop,
+    ::file-selector-button {
+        border-color: var(--color-gray-200, currentColor);
+    }
+}
+
+:root {
+    --background: rgba(255, 255, 255, 1);
+    --foreground: rgba(37, 37, 37, 1);
+    --card: rgba(255, 255, 255, 1);
+    --card-foreground: rgba(37, 37, 37, 1);
+    --popover: rgba(255, 255, 255, 1);
+    --popover-foreground: rgba(37, 37, 37, 1);
+    --primary: rgba(52, 52, 52, 1);
+    --primary-foreground: rgba(251, 251, 251, 1);
+    --secondary: rgba(247, 247, 247, 1);
+    --secondary-foreground: rgba(52, 52, 52, 1);
+    --muted: rgba(247, 247, 247, 1);
+    --muted-foreground: rgba(142, 142, 142, 1);
+    --accent: rgba(247, 247, 247, 1);
+    --accent-foreground: rgba(52, 52, 52, 1);
+    --destructive: rgba(255, 0, 0, 1);
+    --destructive-foreground: rgba(255, 0, 0, 1);
+    --border: rgba(235, 235, 235, 1);
+    --input: rgba(235, 235, 235, 1);
+    --ring: rgba(222, 222, 222, 1);
+    --chart-1: rgba(255, 165, 0, 1);
+    --chart-2: rgba(0, 0, 255, 1);
+    --chart-3: rgba(0, 0, 139, 1);
+    --chart-4: rgba(255, 215, 0, 1);
+    --chart-5: rgba(255, 140, 0, 1);
+    --radius: 0.625rem;
+    --sidebar: rgba(251, 251, 251, 1);
+    --sidebar-foreground: rgba(37, 37, 37, 1);
+    --sidebar-primary: rgba(52, 52, 52, 1);
+    --sidebar-primary-foreground: rgba(251, 251, 251, 1);
+    --sidebar-accent: rgba(247, 247, 247, 1);
+    --sidebar-accent-foreground: rgba(52, 52, 52, 1);
+    --sidebar-border: rgba(235, 235, 235, 1);
+    --sidebar-ring: rgba(222, 222, 222, 1);
+}
+
+.dark {
+    --background: rgb(11, 11, 11);
+    --background-alt: rgb(24, 24, 24);
+    --foreground: rgba(251, 251, 251, 1);
+    --card: rgba(37, 37, 37, 1);
+    --card-foreground: rgba(251, 251, 251, 1);
+    --popover: rgba(37, 37, 37, 1);
+    --popover-foreground: rgba(251, 251, 251, 1);
+    --primary: rgba(251, 251, 251, 1);
+    --primary-foreground: rgba(52, 52, 52, 1);
+    --secondary: rgba(69, 69, 69, 1);
+    --secondary-foreground: rgba(251, 251, 251, 1);
+    --muted: rgba(69, 69, 69, 1);
+    --muted-foreground: rgba(180, 180, 180, 1);
+    --accent: rgba(69, 69, 69, 1);
+    --accent-foreground: rgba(251, 251, 251, 1);
+    --destructive: rgba(255, 0, 0, 1);
+    --destructive-foreground: rgba(255, 0, 0, 1);
+    --border: rgba(69, 69, 69, 1);
+    --input: rgba(69, 69, 69, 1);
+    --ring: rgba(112, 112, 112, 1);
+    --chart-1: rgba(0, 0, 255, 1);
+    --chart-2: rgba(0, 255, 0, 1);
+    --chart-3: rgba(255, 140, 0, 1);
+    --chart-4: rgba(255, 0, 255, 1);
+    --chart-5: rgba(255, 0, 0, 1);
+    --sidebar: rgba(52, 52, 52, 1);
+    --sidebar-foreground: rgba(251, 251, 251, 1);
+    --sidebar-primary: rgba(251, 251, 251, 1);
+    --sidebar-primary-foreground: rgba(52, 52, 52, 1);
+    --sidebar-accent: rgba(69, 69, 69, 1);
+    --sidebar-accent-foreground: rgba(251, 251, 251, 1);
+    --sidebar-border: rgba(69, 69, 69, 1);
+    --sidebar-ring: rgba(112, 112, 112, 1);
+}
+
+@layer base {
+    * {
+        @apply border-border;
+    }
+
+    body {
+        @apply bg-background text-foreground;
+    }
+}
