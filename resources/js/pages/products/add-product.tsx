@@ -9,29 +9,14 @@ import { type SharedData } from '@/types';
 import AddProductForm from '@/components/organisms/forms/AddProductForm';
 import AppLayout from '@/layouts/app-layout';
 
-interface Product {
-    id: number;
-    product_name: string;
-    kcal: number;
-    fat: number;
-    saturated_fat: number;
-    carbs: number;
-    protein: number;
-}
+import { Product } from '@/types';
 
 export default function AddProduct() {
+    const { products } = usePage().props as unknown as SharedData & { products: Product[] };
+    
     const [formAction, setFormAction] = useState<'add' | 'update'>('add');
     const [productId, setProductId] = useState(0);
-    const [formData, setFormData] = useState({
-        product_name: '',
-        kcal: '0',
-        fat: '0',
-        saturated_fat: '0',
-        carbs: '0',
-        protein: '0',
-    });
-
-    const { products } = usePage().props as unknown as SharedData & { products: Product[] };
+    const [formData, setFormData] = useState<Product>({} as Product);
 
     const { delete: destroy } = useForm(formData);
 
@@ -79,11 +64,11 @@ export default function AddProduct() {
 
                                     setFormData({
                                         product_name: product.product_name,
-                                        kcal: product.kcal.toString(),
-                                        fat: product.fat.toString(),
-                                        saturated_fat: product.saturated_fat.toString(),
-                                        carbs: product.carbs.toString(),
-                                        protein: product.protein.toString(),
+                                        kcal: product.kcal,
+                                        fat: product.fat,
+                                        saturated_fat: product.saturated_fat,
+                                        carbs: product.carbs,
+                                        protein: product.protein,
                                     });
 
                                     setFormAction('update');
@@ -91,7 +76,7 @@ export default function AddProduct() {
                             >
                                 Update
                             </button>
-                            
+
                             <button type="submit" onClick={(e) => deleteProduct(e, product.id)}>
                                 Delete
                             </button>

@@ -1,19 +1,35 @@
 // React / Inertie
 import { useForm } from '@inertiajs/react';
-import { Dispatch, FormEvent, FormEventHandler, SetStateAction, useEffect } from 'react';
+import { Dispatch, FormEvent, FormEventHandler, SetStateAction, useEffect, useState } from 'react';
+import { z } from 'zod';
 
 // Components
 import SingleLineInput from '@/components/molecules/single-line-input';
 
+// Types
+import { Product } from '@/types';
+
 interface formProps {
     id: number;
-    defaultData: { [key: string]: string };
+    defaultData: Product;
     formAction: string;
     setFormAction: Dispatch<SetStateAction<'add' | 'update'>>;
 }
 
+const schema = z.object({
+    product_name: z.string().min(1, 'Product name is required'),
+    kcal: z.number().min(0, 'Kcal must be greater than 0'),
+    fat: z.string(),
+    saturated_fat: z.string(),
+    carbs: z.string(),
+    protein: z.string(),
+});
+
 export default function AddProductForm({ id, defaultData, formAction, setFormAction }: formProps) {
+
     const { data, setData, post, patch } = useForm(defaultData);
+
+    const [ errors, setErrors ] = useState({});
 
     useEffect(() => {
         setData(defaultData);
@@ -30,11 +46,11 @@ export default function AddProductForm({ id, defaultData, formAction, setFormAct
 
         setData({
             product_name: '',
-            kcal: '0',
-            fat: '0',
-            saturated_fat: '0',
-            carbs: '0',
-            protein: '0',
+            kcal: 0,
+            fat: 0,
+            saturated_fat: 0,
+            carbs: 0,
+            protein: 0,
         });
 
         setFormAction('add');
@@ -42,6 +58,14 @@ export default function AddProductForm({ id, defaultData, formAction, setFormAct
 
     const submit: FormEventHandler = (e) => {
         e.preventDefault();
+
+        const validation = schema.safeParse(data);
+
+        if (!validation.success) {
+            setErrors(validation.error.format());
+            console.log(errors);
+            return;
+        }
 
         post(route('product.create'), {
             preserveScroll: true,
@@ -60,31 +84,37 @@ export default function AddProductForm({ id, defaultData, formAction, setFormAct
             >
                 <SingleLineInput
                     name="product-name"
-                    data={data.product_name}
+                    data={Number(data.product_name)}
                     onChange={(e) => setData('product_name', e.target.value)}
                     text="Product name"
                 />
 
                 <fieldset className="flex flex-wrap gap-5">
-                    <SingleLineInput type="number" name="kcal" data={data.kcal} onChange={(e) => setData('kcal', e.target.value)} text="Kcal" />
+                    <SingleLineInput
+                        type="number"
+                        name="kcal"
+                        data={Number(data.kcal)}
+                        onChange={(e) => setData('kcal', Number(e.target.value))}
+                        text="Kcal"
+                    />
 
-                    <SingleLineInput type="number" name="fat" data={data.fat} onChange={(e) => setData('fat', e.target.value)} text="Fat" />
+                    <SingleLineInput type="number" name="fat" data={Number(data.fat)} onChange={(e) => setData('fat', Number(e.target.value))} text="Fat" />
 
                     <SingleLineInput
                         type="number"
                         name="saturated-fat"
-                        data={data.saturated_fat}
-                        onChange={(e) => setData('saturated_fat', e.target.value)}
+                        data={Number(data.saturated_fat)}
+                        onChange={(e) => setData('saturated_fat', Number(e.target.value))}
                         text="Saturated fat"
                     />
 
-                    <SingleLineInput type="number" name="carbs" data={data.carbs} onChange={(e) => setData('carbs', e.target.value)} text="Carbs" />
+                    <SingleLineInput type="number" name="carbs" data={Number(data.carbs)} onChange={(e) => setData('carbs', Number(e.target.value))} text="Carbs" />
 
                     <SingleLineInput
                         type="number"
                         name="protein"
-                        data={data.protein}
-                        onChange={(e) => setData('protein', e.target.value)}
+                        data={Number(data.protein)}
+                        onChange={(e) => setData('protein', Number(e.target.value))}
                         text="Protein"
                     />
                 </fieldset>

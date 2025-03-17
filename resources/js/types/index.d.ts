@@ -1,6 +1,16 @@
 import { LucideIcon } from 'lucide-react';
 import type { Config } from 'ziggy-js';
 
+export interface Product {
+    id?: number;
+    product_name: string;
+    kcal: number;
+    fat: number;
+    saturated_fat: number;
+    carbs: number;
+    protein: number;
+}
+
 export interface Auth {
     user: User;
 }
