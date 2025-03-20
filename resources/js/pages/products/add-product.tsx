@@ -3,13 +3,11 @@ import { Head, useForm, usePage } from '@inertiajs/react';
 import { MouseEvent, useState } from 'react';
 
 // Types
-import { type SharedData } from '@/types';
+import { type SharedData, Product } from '@/types';
 
 // Components
 import AddProductForm from '@/components/organisms/forms/AddProductForm';
 import AppLayout from '@/layouts/app-layout';
-
-import { Product } from '@/types';
 
 export default function AddProduct() {
     const { products } = usePage().props as unknown as SharedData & { products: Product[] };
@@ -41,7 +39,7 @@ export default function AddProduct() {
     return (
         <AppLayout>
             <Head title="Add product" />
-            <div className="mx-auto p-5">
+            <div className="mx-auto p-5 max-w-7xl">
                 <AddProductForm defaultData={formData} formAction={formAction} setFormAction={setFormAction} id={productId} />
 
                 <div className={`${styles.grid}`}>

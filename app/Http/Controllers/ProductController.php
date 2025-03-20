@@ -42,4 +42,10 @@ class ProductController extends Controller
 
         return redirect()->route('product.index')->with('success','Product updated!');
     }
+
+    public function calculator() {
+        return inertia('products/calculator', [
+            'products' => Product::all()
+        ]);
+    }
 }

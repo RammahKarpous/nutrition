@@ -15,8 +15,8 @@ Nutrition is a free and open-source web app that allows people to calculate thei
 ## Features
 ------------
 #### Non-CRUD functionalities
-- [ ] Display added products in a pop-up
-- [ ] From the pop-up select the products for nutrition calculation
+- [x] Display added products in a pop-up
+- [x] From the pop-up select the products for nutrition calculation
 - [ ] Calculate the total nutrition intake in a table
 
 #### CRUD functionalities
