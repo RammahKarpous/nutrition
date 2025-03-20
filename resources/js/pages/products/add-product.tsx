@@ -16,7 +16,14 @@ export default function AddProduct() {
     
     const [formAction, setFormAction] = useState<'add' | 'update'>('add');
     const [productId, setProductId] = useState(0);
-    const [formData, setFormData] = useState<Product>({} as Product);
+    const [formData, setFormData] = useState({
+        product_name: '',
+        kcal: 0,
+        fat: 0,
+        saturated_fat: 0,
+        carbs: 0,
+        protein: 0,
+      });
 
     const { delete: destroy } = useForm(formData);
 
@@ -60,7 +67,7 @@ export default function AddProduct() {
                             <button
                                 type="submit"
                                 onClick={() => {
-                                    setProductId(product.id);
+                                    setProductId(product.id ?? 0);
 
                                     setFormData({
                                         product_name: product.product_name,
@@ -77,7 +84,7 @@ export default function AddProduct() {
                                 Update
                             </button>
 
-                            <button type="submit" onClick={(e) => deleteProduct(e, product.id)}>
+                            <button type="submit" onClick={(e) => deleteProduct(e, product.id ?? 0)}>
                                 Delete
                             </button>
                         </div>

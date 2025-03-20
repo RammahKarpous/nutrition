@@ -10,12 +10,12 @@ class ProductController extends Controller
 
     public function validate($data) {
         return $data->validate([
-            'product_name' => 'string|required',
-            'kcal' => 'float|min:0|required',
-            'fat' => 'float|min:0|required',
-            'saturated_fat' => 'float|min:0|required',
-            'carbs' => 'float|min:0|required',
-            'protein' => 'float|min:0|required',
+            'product_name' => ['string', 'required'],
+            'kcal' => ['numeric', 'min:0', 'required', 'regex:/^\d+(?:[.,]\d+)?$/'],
+            'fat' => ['numeric', 'min:0', 'required', 'regex:/^\d+(?:[.,]\d+)?$/'],
+            'saturated_fat' => ['numeric', 'min:0', 'required', 'regex:/^\d+(?:[.,]\d+)?$/'],
+            'carbs' => ['numeric', 'min:0', 'required', 'regex:/^\d+(?:[.,]\d+)?$/'],
+            'protein' => ['numeric', 'min:0', 'required', 'regex:/^\d+(?:[.,]\d+)?$/'],
         ]);
     }
 

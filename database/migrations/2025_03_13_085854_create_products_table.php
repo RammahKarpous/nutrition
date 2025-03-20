@@ -14,11 +14,11 @@ return new class extends Migration
         Schema::create('products', function (Blueprint $table) {
             $table->id();
             $table->string('product_name');
-            $table->float('kcal');
-            $table->float('fat');
-            $table->float('saturated_fat');
-            $table->float('carbs');
-            $table->float('protein');
+            $table->decimal('kcal');
+            $table->decimal('fat');
+            $table->decimal('saturated_fat');
+            $table->decimal('carbs');
+            $table->decimal('protein');
             $table->timestamps();
         });
     }

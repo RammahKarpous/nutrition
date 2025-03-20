@@ -19,15 +19,24 @@ interface formProps {
 const schema = z.object({
     product_name: z.string().min(1, 'Product name is required'),
     kcal: z.number().min(0, 'Kcal must be greater than 0'),
-    fat: z.string(),
-    saturated_fat: z.string(),
-    carbs: z.string(),
-    protein: z.string(),
+    fat: z.number().min(0, 'Kcal must be greater than 0'),
+    saturated_fat: z.number().min(0, 'Kcal must be greater than 0'),
+    carbs: z.number().min(0, 'Kcal must be greater than 0'),
+    protein: z.number().min(0, 'Kcal must be greater than 0'),
 });
 
 export default function AddProductForm({ id, defaultData, formAction, setFormAction }: formProps) {
 
-    const { data, setData, post, patch } = useForm(defaultData);
+    const formData = {
+      product_name: defaultData.product_name,
+      kcal: defaultData.kcal,
+      fat: defaultData.fat,
+      saturated_fat: defaultData.saturated_fat,
+      carbs: defaultData.carbs,
+      protein: defaultData.protein,
+    };
+    
+    const { data, setData, post, patch } = useForm(formData);
 
     const [ errors, setErrors ] = useState({});
 
@@ -84,7 +93,7 @@ export default function AddProductForm({ id, defaultData, formAction, setFormAct
             >
                 <SingleLineInput
                     name="product-name"
-                    data={Number(data.product_name)}
+                    data={data.product_name}
                     onChange={(e) => setData('product_name', e.target.value)}
                     text="Product name"
                 />
