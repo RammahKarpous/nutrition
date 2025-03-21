@@ -16,7 +16,13 @@ export default function SingleLineInput({
     return (
         <div className="flex flex-col gap-2">
             <label htmlFor={name}>{text}</label>
-            <Input type={type} name={name} id={name} value={data} onChange={onChange} className={`bg-background-alt rounded p-3 ${className}`} />
+            <Input 
+                type={type} 
+                name={name} 
+                id={name} 
+                value={data} 
+                onChange={onChange} 
+                className={`bg-background-alt rounded p-3 ${className} ${errorMessage ? 'border-red-500' : ''}`} />
             {errorMessage && <p className="text-red-500">{errorMessage}</p>}
         </div>
     );

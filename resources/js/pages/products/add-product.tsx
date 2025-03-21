@@ -10,11 +10,12 @@ import AddProductForm from '@/components/organisms/forms/AddProductForm';
 import AppLayout from '@/layouts/app-layout';
 
 export default function AddProduct() {
-    const { products } = usePage().props as unknown as SharedData & { products: Product[] };
+    const { products, auth } = usePage().props as unknown as SharedData & { products: Product[], auth: { user: { id: number } } };
     
     const [formAction, setFormAction] = useState<'add' | 'update'>('add');
     const [productId, setProductId] = useState(0);
     const [formData, setFormData] = useState({
+        user_id: 1,
         product_name: '',
         kcal: 0,
         fat: 0,
@@ -40,7 +41,11 @@ export default function AddProduct() {
         <AppLayout>
             <Head title="Add product" />
             <div className="mx-auto p-5 max-w-7xl">
-                <AddProductForm defaultData={formData} formAction={formAction} setFormAction={setFormAction} id={productId} />
+                <AddProductForm 
+                    defaultData={formData} 
+                    formAction={formAction} 
+                    setFormAction={setFormAction} 
+                    id={productId} />
 
                 <div className={`${styles.grid}`}>
                     <p className={`${styles.headings} ${styles.padding}`}>Product name</p>
@@ -68,6 +73,7 @@ export default function AddProduct() {
                                     setProductId(product.id ?? 0);
 
                                     setFormData({
+                                        user_id: auth.user.id,
                                         product_name: product.product_name,
                                         kcal: product.kcal,
                                         fat: product.fat,

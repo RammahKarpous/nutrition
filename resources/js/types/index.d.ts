@@ -3,6 +3,7 @@ import type { Config } from 'ziggy-js';
 
 export interface Product {
     id?: number;
+    user_id: number;
     product_name: string;
     kcal: number;
     fat: number;

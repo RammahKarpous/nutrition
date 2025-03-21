@@ -10,6 +10,7 @@ class ProductController extends Controller
 
     public function validate($data) {
         return $data->validate([
+            'user_id' => ['required'],
             'product_name' => ['string', 'required'],
             'kcal' => ['numeric', 'min:0', 'required', 'regex:/^\d+(?:[.,]\d+)?$/'],
             'fat' => ['numeric', 'min:0', 'required', 'regex:/^\d+(?:[.,]\d+)?$/'],
