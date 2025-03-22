@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProductController;
+use App\Models\User;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -10,7 +11,12 @@ Route::get( '/', function () {
 
 Route::middleware( ['auth', 'verified'] )->group( function () {
     Route::get( 'dashboard', function () {
-        return Inertia::render( 'dashboard' );
+        $user = auth()->user();
+
+        return Inertia::render( 'dashboard', [
+            'isAdmin' => $user->isAdmin(),
+            'users'   => User::all(),
+        ] );
     } )->name( 'dashboard' );
 
     /**
@@ -26,7 +32,7 @@ Route::middleware( ['auth', 'verified'] )->group( function () {
     Route::delete( 'delete-product/{id}', [ProductController::class, 'delete'] )->name( 'product.delete' );
     Route::patch( 'update-product/{id}', [ProductController::class, 'update'] )->name( 'product.update' );
 
-    Route::get('calculator', [ProductController::class,'calculator'])->name('product.calculator');
+    Route::get( 'calculator', [ProductController::class, 'calculator'] )->name( 'product.calculator' );
 } );
 
 require __DIR__ . '/settings.php';
