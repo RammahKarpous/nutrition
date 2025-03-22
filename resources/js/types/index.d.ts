@@ -12,6 +12,11 @@ export interface Product {
     protein: number;
 }
 
+export interface Users {
+    id: number;
+    name: string;
+}
+
 export interface Auth {
     user: User;
 }

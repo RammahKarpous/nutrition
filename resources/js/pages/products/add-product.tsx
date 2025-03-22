@@ -10,8 +10,8 @@ import AddProductForm from '@/components/organisms/forms/AddProductForm';
 import AppLayout from '@/layouts/app-layout';
 
 export default function AddProduct() {
-    const { products, auth } = usePage().props as unknown as SharedData & { products: Product[], auth: { user: { id: number } } };
-    
+    const { products, auth } = usePage().props as unknown as SharedData & { products: Product[]; auth: { user: { id: number } } };
+
     const [formAction, setFormAction] = useState<'add' | 'update'>('add');
     const [productId, setProductId] = useState(0);
     const [formData, setFormData] = useState({
@@ -22,13 +22,13 @@ export default function AddProduct() {
         saturated_fat: 0,
         carbs: 0,
         protein: 0,
-      });
+    });
 
     const { delete: destroy } = useForm(formData);
 
     const styles: { [key: string]: string } = {
         headings: 'font-bold text-lg',
-        grid: 'grid grid-cols-8 border-b border-background-alt',
+        grid: 'grid grid-cols-7 border-b border-background-alt',
         padding: 'px-5 py-3 ',
     };
 
@@ -40,12 +40,8 @@ export default function AddProduct() {
     return (
         <AppLayout>
             <Head title="Add product" />
-            <div className="mx-auto p-5 max-w-7xl">
-                <AddProductForm 
-                    defaultData={formData} 
-                    formAction={formAction} 
-                    setFormAction={setFormAction} 
-                    id={productId} />
+            <div className="mx-auto max-w-7xl p-5">
+                <AddProductForm defaultData={formData} formAction={formAction} setFormAction={setFormAction} id={productId} />
 
                 <div className={`${styles.grid}`}>
                     <p className={`${styles.headings} ${styles.padding}`}>Product name</p>
