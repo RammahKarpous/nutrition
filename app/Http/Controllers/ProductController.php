@@ -12,17 +12,19 @@ class ProductController extends Controller
         return $data->validate([
             'user_id' => ['required'],
             'product_name' => ['string', 'required'],
-            'kcal' => ['numeric', 'min:0', 'required', 'regex:/^\d+(?:[.,]\d+)?$/'],
-            'fat' => ['numeric', 'min:0', 'required', 'regex:/^\d+(?:[.,]\d+)?$/'],
-            'saturated_fat' => ['numeric', 'min:0', 'required', 'regex:/^\d+(?:[.,]\d+)?$/'],
-            'carbs' => ['numeric', 'min:0', 'required', 'regex:/^\d+(?:[.,]\d+)?$/'],
-            'protein' => ['numeric', 'min:0', 'required', 'regex:/^\d+(?:[.,]\d+)?$/'],
+            'kcal' => ['numeric', 'min:0', 'required'],
+            'fat' => ['numeric', 'min:0', 'required'],
+            'saturated_fat' => ['numeric', 'min:0', 'required'],
+            'carbs' => ['numeric', 'min:0', 'required'],
+            'protein' => ['numeric', 'min:0', 'required'],
         ]);
     }
 
     public function index() {
+        $user = auth()->user();
+
         return inertia('products/add-product', [
-            'products' => Product::all()
+            'products' => Product::where('user_id', $user->id)->get(),
         ]);
     }
 
@@ -45,8 +47,10 @@ class ProductController extends Controller
     }
 
     public function calculator() {
+        $user = auth()->user();
+
         return inertia('products/calculator', [
-            'products' => Product::all()
+            'products' => Product::where('user_id', $user->id)->get(),
         ]);
     }
 }
