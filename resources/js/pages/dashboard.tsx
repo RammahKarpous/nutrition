@@ -27,6 +27,8 @@ export default function Dashboard() {
                     <div className="border-sidebar-border/70 dark:border-sidebar-border relative aspect-video overflow-hidden overflow-y-auto rounded-xl border">
                         {isAdmin ? (
                             <div className="flex flex-col gap-4 p-5">
+                                <h3 className='text-2xl font-bold'>Users</h3>
+                                
                                 {users?.map((user) => (
                                     <div className="flex items-center gap-3" key={user.id}>
                                         <p>{user.id}</p>
