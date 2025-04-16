@@ -27,7 +27,9 @@ const ProductsCalculatorTable = ({
             grams: prevState.grams + grams,
             kcal: prevState.kcal + (product.kcal * grams),
         }));
-    }, [totalNutrition]);
+
+        console.log(totalNutrition.grams)
+    }, [grams]);
 
     const handleGramsChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setGrams(Number(event.target.value));
