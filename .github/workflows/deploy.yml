@@ -33,36 +33,22 @@ jobs:
       - name: Build assets
         run: npm run build
 
-      - name: Debug SSH Key and Connection
-        env:
-          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
-          REMOTE_HOST: ${{ secrets.SSH_HOST }}
-          REMOTE_PORT: ${{ secrets.SSH_PORT }}
-          REMOTE_USER: ${{ secrets.SSH_USER }}
-        run: |
-          echo "Checking SSH key and connection..."
-          mkdir -p ~/.ssh
-          echo "$SSH_PRIVATE_KEY" > ~/.ssh/deploy_key
-          chmod 600 ~/.ssh/deploy_key
-          ssh-keygen -y -f ~/.ssh/deploy_key || echo "Failed to read private key"
-          ssh -i ~/.ssh/deploy_key -p $REMOTE_PORT -o StrictHostKeyChecking=no $REMOTE_USER@$REMOTE_HOST "whoami" || echo "SSH connection failed"
-
       - name: Synchronize files to server
         uses: easingthemes/ssh-deploy@v4.0.0
         env:
           SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
           ARGS: "-avzr --delete"
           SOURCE: "."
-          REMOTE_HOST: ${{ secrets.SSH_HOST }}
           REMOTE_PORT: ${{ secrets.SSH_PORT }}
-          REMOTE_USER: ${{ secrets.SSH_USER }}
+          REMOTE_HOST: ${{ secrets.REMOTE_HOST }}
+          REMOTE_USER: ${{ secrets.REMOTE_USER }}
           TARGET: ${{ secrets.REMOTE_PATH }}
 
       - name: Run remote/Artisan commands
         uses: appleboy/ssh-action@master
         with:
-          host: ${{ secrets.SSH_HOST }}
-          username: ${{ secrets.SSH_USER }}
+          host: ${{ secrets.REMOTE_HOST }}
+          username: ${{ secrets.REMOTE_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
             cd ${{ secrets.REMOTE_PATH }}
