@@ -41,6 +41,8 @@ export const NutritionProvider: React.FC<{ children: ReactNode }> = ({ children 
   // Calculate total nutrition whenever selected products change
   useEffect(() => {
     calculateTotalNutrition();
+    
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedProducts]);
 
   const calculateTotalNutrition = () => {

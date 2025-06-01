@@ -12,8 +12,11 @@ test('registration screen can be rendered', function () {
 });
 
 test('new users can register', function () {
+    // Create the 'user' role needed for registration
+    Role::create(['name' => 'user']);
+    
     // Attempt to register a new user
-    $response = $this->followingRedirects()->post('/register', [
+    $response = $this->post('/register', [
         'name' => 'Test User',
         'email' => 'test@example.com',
         'password' => 'password',
@@ -27,6 +30,6 @@ test('new users can register', function () {
     $user = User::where('email', 'test@example.com')->first();
     expect($user)->not->toBeNull();
 
-    // Optionally, check if the user was redirected to the correct page (like the dashboard)
+    // Check that the response is a redirect to the dashboard
     $response->assertRedirect(route('dashboard', absolute: false));
-})->only();
+});

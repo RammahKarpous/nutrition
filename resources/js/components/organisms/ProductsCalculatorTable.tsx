@@ -7,7 +7,7 @@ interface Props {
 }
 
 const ProductsCalculatorTable = ({ product, styles }: Props) => {
-  const { updateProductGrams, removeProduct } = useNutrition();
+  const { updateProductGrams } = useNutrition();
   
   // Use currentGrams from the context-enhanced product
   const grams = product.currentGrams || 1;
