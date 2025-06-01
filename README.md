@@ -25,30 +25,71 @@ Nutrition is a free and open-source web app that allows people to calculate thei
 - [x] Update a product
 - [x] Display all products in a table
 
-## Getting Started
----------------
-1. Clone the repo
-```bash 
-# using Git
-git clone https://github.com/rammahkarpous/nutrition.git 
+## Setting up the Local Development Environment
 
-# Using gh CLI
-gh clone rammahkarpous/nutrition
-```
+1. **Clone the repository**
 
-2. Install all the dependencies
-```bash
-# NPM
-npm install
+   ```bash
+   git clone https://github.com/rammahkarpous/nutrition.git
+   cd nutrition
+   ```
 
-# Composer
-composer install
-```
+2. **Install PHP dependencies**
 
-3. Run the server
-```bash
-composer run dev
-```
+   ```bash
+   composer install
+   ```
+
+3. **Set up environment variables**
+
+   ```bash
+   cp .env.example .env
+   php artisan key:generate
+   ```
+
+4. **Configure the database**
+
+   Edit the `.env` file to set up the database connection. For local development with SQLite:
+
+   ```
+   DB_CONNECTION=sqlite
+   # Create an empty database file
+   touch database/database.sqlite
+   ```
+
+   For MySQL:
+
+   ```
+   DB_CONNECTION=mysql
+   DB_HOST=127.0.0.1
+   DB_PORT=3306
+   DB_DATABASE=nutrition
+   DB_USERNAME=root
+   DB_PASSWORD=
+   ```
+
+   If necessary add a password to the `DB_PASSWORD` environment variable.
+
+5. **Run database migrations and seeders**
+
+   ```bash
+   php artisan migrate
+   php artisan db:seed
+   ```
+
+6. **Install frontend dependencies**
+
+   ```bash
+   npm install
+   ```
+
+7. **Start the development server**
+
+   ```bash
+   composer run dev
+   ```
+
+   The application will be available at http://localhost:8000
 
 ## Tech stack
 -----
