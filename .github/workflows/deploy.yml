@@ -56,4 +56,4 @@ jobs:
             php artisan migrate --force
             php artisan config:cache
 
-            cp public/build ../../public_html/nutrition
+            cp -r public/build ../../public_html/nutrition
