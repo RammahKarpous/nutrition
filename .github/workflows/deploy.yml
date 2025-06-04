@@ -55,3 +55,5 @@ jobs:
             cd ${{ secrets.REMOTE_PATH }}
             php artisan migrate --force
             php artisan config:cache
+
+            cp public/build ../../public_html/nutrition
