@@ -52,6 +52,5 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
             cd ${{ secrets.REMOTE_PATH }}
-            cp .env.example .env
             php artisan migrate --force
             php artisan config:cache
