@@ -50,11 +50,11 @@ export const NutritionProvider: React.FC<{ children: ReactNode }> = ({ children 
       (acc, product) => {
         return {
           grams: acc.grams + product.currentGrams,
-          kcal: acc.kcal + (product.kcal * product.currentGrams),
-          fat: acc.fat + (product.fat * product.currentGrams),
-          saturated_fat: acc.saturated_fat + (product.saturated_fat * product.currentGrams),
-          carbs: acc.carbs + (product.carbs * product.currentGrams),
-          protein: acc.protein + (product.protein * product.currentGrams)
+          kcal: acc.kcal + (product.kcal * product.currentGrams / 100),
+          fat: acc.fat + (product.fat * product.currentGrams / 100),
+          saturated_fat: acc.saturated_fat + (product.saturated_fat * product.currentGrams / 100),
+          carbs: acc.carbs + (product.carbs * product.currentGrams / 100),
+          protein: acc.protein + (product.protein * product.currentGrams / 100)
         };
       },
       { ...defaultNutritionValues }

@@ -17,7 +17,7 @@ const ProductsCalculatorTable = ({ product, styles }: Props) => {
   };
 
   const getNutrition = (nutrition: number) => {
-    return nutrition % 1 !== 0 ? (nutrition * grams).toFixed(2) : nutrition * grams;
+    return nutrition % 1 !== 0 ? (nutrition * grams / 100).toFixed(2) : nutrition * grams / 100;
   };
 
   return (
